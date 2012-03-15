@@ -77,27 +77,27 @@ h4. *Config.php*
 This is the WSL_Config constructor, it creates a WSL_Config object. You need to provide the file path that you want to read. If the file does not exist or cannot be opened, it will throw an exception.
 
 
-*public array *getSection**(string $section)
+* public array *getSection*(string $section)
 
 This method returns an array containing the data of the section provided through the input parameter.
 
-*public mixed *getValue**(string $section, string $key)
+* public mixed *getValue*(string $section, string $key)
 
 This method returns a specific key value from a section. If the section or the key does not exist in the object, it will return null.
 
-*public boolean *setValue**(string $section, string $key, mixed $value)
+* public boolean *setValue*(string $section, string $key, mixed $value)
 
 This method sets a key-value pair into a section. If the section does not exist, it will be created automatically. The key cannot be null, otherwise the method will raise an exception. The method will return true unless the key is empty.
 
-*public string *getFileName**()
+* public string *getFileName*()
 
 This method returns the file which is being read by the object.
 
-*public array *toArray**()
+* public array *toArray*()
 
 This method returns an array containing a representing tree of the whole configuration file.
 
-*public void *merge**(WSL_Config $config, boolean $override=true)
+* public void *merge*(WSL_Config $config, boolean $override=true)
 
 This method merges two WSL_Config objects. If $override is true, the original section values will be overridden by the new ones. Otherwise the shared section values will be ignored.
 
