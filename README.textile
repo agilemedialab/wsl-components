@@ -15,4 +15,60 @@ Once you have installed the PEAR Installer you can proceed to installing the pac
 <pre><code>
 pear channel-discover pear.weblogssl.com
 pear install -a WSL/WSL_Config
+</code></pre>
+
+You will be able to upgrade to future versions of WSL_Config by executing: 
+
+<pre><code>
+pear upgrade WSL/WSL_Config
 </code></pre> 
+
+h5. SVN
+
+The procedure for checking out the SVN repository is quite simple aswell. You can get the whole set of packages (or any module therein) by executing the following command: 
+
+<pre><code>
+svn checkout http://wsl-components.googlecode.com/svn/trunk/ wsl-components-read-only
+</code></pre>
+
+h6. Available Packages
+
+Currently we have these packages ready to use: 
+
+h7. *WSL_Config*
+
+h98. Introduction
+
+*WSL_Config* is a component that allows you to handle configuration INI files. It also lets you to merge different configuration files.
+
+An example of a INI file structure could be:
+
+<pre><code>
+section]
+key1="hello"
+key2="world"
+
+[section2]
+key1="foo"
+</code></pre>
+
+h9. *Installation*
+
+h10. *PEAR*
+
+<pre><code>
+pear channel-discover pear.weblogssl.com
+pear install -a WSL/WSL_Config
+</code></pre>
+
+h11. *SVN*
+
+<pre><code>
+svn co http://wsl-components.googlecode.com/svn/trunk/Config wsl-components-read-only
+</code></pre>
+
+h12. **Methods**
+
+h13. *Config.php*
+
+	*·*
