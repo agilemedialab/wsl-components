@@ -294,6 +294,7 @@ h3. *Example 2. Getting the Parameters*
 
 h3. *Example 3. Getting the URL*
 <pre><code>
+
 <?php
     require_once 'WSL/Dispatcher/Dispatcher.php';
 
@@ -309,4 +310,5 @@ h3. *Example 3. Getting the URL*
 
     $url = $dispatcher->toURL($params);
 ?>
+
 </code></pre>  
