@@ -31,13 +31,13 @@ The procedure for checking out the SVN repository is quite simple aswell. You ca
 svn checkout http://wsl-components.googlecode.com/svn/trunk/ wsl-components-read-only
 </code></pre>
 
-h6. Available Packages
+h4. Available Packages
 
 Currently we have these packages ready to use: 
 
-h7.  *WSL_Config*
+h4.  *WSL_Config*
 
-h8.  Introduction
+h4.  Introduction
 
 *WSL_Config* is a component that allows you to handle configuration INI files. It also lets you to merge different configuration files.
 
@@ -52,16 +52,16 @@ key2="world"
 key1="foo"
 </code></pre>
 
-h9.  *Installation*
+h4.  *Installation*
 
-h10.  *PEAR*
+h4.  *PEAR*
 
 <pre><code>
 pear channel-discover pear.weblogssl.com
 pear install -a WSL/WSL_Config
 </code></pre>
 
-h11.  *SVN*
+h4.  *SVN*
 
 <pre><code>
 svn co http://wsl-components.googlecode.com/svn/trunk/Config wsl-components-read-only
@@ -69,6 +69,6 @@ svn co http://wsl-components.googlecode.com/svn/trunk/Config wsl-components-read
 
 h2.  **Methods**
 
-h13. *Config.php*
+h4. *Config.php*
 
-	*·*
+	**·**public WSL_Config *__construct*(string $file)
