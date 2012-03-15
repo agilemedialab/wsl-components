@@ -35,7 +35,7 @@ h4. Available Packages
 
 Currently we have these packages ready to use: 
 
-h4.  *WSL_Config*
+h1.  *WSL_Config*
 
 h4.  Introduction
 
@@ -158,4 +158,155 @@ Note: This is pretty useful when you try to build a system which can handle seve
 ?>
 </code></pre>
 
+
+h1. *WSL_Dispatcher*
+
+h2. *Introduction*
+
+*WSL_Dispatcher* is a component that provides functionality for HTTP request parsing, routing and dispatching. You only need to define all the routes of your web application and *WSL_Dispatcher* will do everything for you. 
+
+A dispatcher is an essential component of a MVC pattern, since it forwards the frontend requests to the specified application controller. 
+
+h4. *Installation*
+
+h4. *PEAR*
+
+<pre><code>
+pear channel-discover pear.weblogssl.com
+pear install -a WSL/WSL_Dispatcher
+</code></pre>
+
+h4. *SVN*
+
+<pre><code>
+svn co http://wsl-components.googlecode.com/svn/trunk/Dispatcher wsl-components-read-only
+</code></pre>
+
+h4. *Package Dependencies*
+
+h2. *Methods*
+
+h3. *Dispatcher.php*
+
+* public WSL_Dispatcher *__construct*(WSL_Config $routes, boolean $cache = false)
+
+
+
+This is the WSL_Dispatcher constructor, it creates a WSL_Dispatcher object. You need to pass a WSL_Config object as parameter. This object should contain the available routes (if you want to know how to define routes, please have a look at the Defining routes section). It also has a second parameter which turns on the routes cache. We rather recommend the use of the cache, since it speeds up the route search process.
+
+* public array *toParams*(string $url)
+
+
+
+This method translates a URL into an array containing a set of parameters which tells us what controller and action need to be executed by the application. This array could contain information passed through the URL (dynamic URLs).
+
+* public string *toURL*(array $params)
+
+
+
+This method does exactly the opposite of toParams. It translates from a set of parameters to a URL string. The input array needs to contain at least the controller and the action. In case it's a dynamic URL, you need to specify the variable values into the parameters array. For example (URL: /person/:name)
+
+<pre><code>
+<?php
+    $params = array('controller' => 'Controller.Example',
+                    'action'     => 'exampleAction',
+                    'name'       => 'alexandra');
+
+    // $url contains /person/alexandra
+    $url = $dispatcher->toURL($params);
+?>
+</code></pre>
+
+*WSL_Dispatcher* has other two files: Router.php and Node.php. These two files contains classes which are used by Dispatcher.php. If you want to know more about them, please have a look at the source.
+
+h3. *Defining routes*
+
+Before using *WSL_Dispatcher*, we need to define our application routes in a file and afterwards load that file into a WSL_Dispatcher object. The format which we will use in order to define the routes is INI. Let's define some sample routes:
+
+<pre><code>
+;Simple Route
+
+[simpleroute]
+route = "/example"
+controller = "Controller.Example"
+action = "exampleAction"
+
+
+;Dynamic Route
+
+[dynamicroute]
+route = "/book/:title"
+controller = "Controller.Books"
+action = "getBookByTitle"
+
+
+;Complex Dynamic Route
+
+[complexdynamicroute]
+route = "/book/:year/:title/"
+controller = "Controller.Books"
+action = "getBookByYearAndTitle"
+requirement.year = "\d{4}"
+requirement.title = "[a-z]+"
+</code></pre>
  
+As you can see in the last example, it's possible to use *regular expressions* in your routes definition. You can also define static values by using meta.value, for example: 
+
+<pre><code>
+;Simple Route
+
+[simpleroute]
+route = "/example"
+controller = "Controller.Example"
+action = "exampleAction"
+meta.cache_lifetime = 3600
+</code></pre>
+
+h2. *Examples*
+
+h3. *Example 1. Creating a WSL_Dispatcher Object*
+
+<pre><code>
+<?php
+    require_once 'WSL/Dispatcher/Dispatcher.php';
+
+    $routes = new WSL_Config('routes.ini');
+
+    $dispatcher = new WSL_Dispatcher($routes);
+?>
+</code></pre>
+
+h3. *Example 2. Getting the Parameters*
+
+<pre><code>
+<?php
+    require_once 'WSL/Dispatcher/Dispatcher.php';
+
+    $routes     = new WSL_Config('routes.ini');
+    $dispatcher = new WSL_Dispatcher($routes);
+
+    // Note: We recommend you to use WSL_Request::getPath()
+    $url = $_SERVER['REQUEST_URI'];
+
+    $params = $dispatcher->toParams($url);
+?>
+</code></pre>
+
+h3. *Example 3. Getting the URL*
+<pre><code>
+<?php
+    require_once 'WSL/Dispatcher/Dispatcher.php';
+
+    $routes     = new WSL_Config('routes.ini');
+    $dispatcher = new WSL_Dispatcher($routes);
+
+    $params = array('controller' => 'Controller.Posts',
+                    'action'     => 'post',
+                    'title'      => 'post-title',
+                    'year'       => '1986',
+                    'month'      => '10',
+                    'day'        => '04');
+
+    $url = $dispatcher->toURL($params);
+?>
+</code></pre>  
