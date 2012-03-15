@@ -1,0 +1,5 @@
+h1. wsl-components
+
+h2. Introduction
+
+*WSL Components* is general purpose PHP components library with the goal of aiding in the development of PHP applications. By using WSL Components you will not have to reinvent the wheel again. Each package is focused on a specific purpose, for example WSL_Config handles configuration INI files or WSL_FormValidator validates the data received by a form. 
