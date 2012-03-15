@@ -71,4 +71,4 @@ h2.  **Methods**
 
 h4. *Config.php*
 
-	**·**public WSL_Config *__construct*(string $file)
+	**·** public WSL_Config *__construct*(string $file)
