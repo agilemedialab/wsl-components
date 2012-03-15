@@ -1,5 +1,18 @@
-h1. wsl-components
+h1. *wsl-components*
 
-h2. Introduction
+h2. *Introduction*
 
-*WSL Components* is general purpose PHP components library with the goal of aiding in the development of PHP applications. By using WSL Components you will not have to reinvent the wheel again. Each package is focused on a specific purpose, for example WSL_Config handles configuration INI files or WSL_FormValidator validates the data received by a form. 
+*WSL Components* is general purpose PHP components library with the goal of aiding in the development of PHP applications. By using *WSL Components* you will not have to reinvent the wheel again. Each package is focused on a specific purpose, for example WSL_Config handles configuration INI files or WSL_FormValidator validates the data received by a form.
+
+h3. *Installation Guide*
+
+The easiest way to install our packages on your local system is by using the PEAR installer. You can also checkout a copy of the code from our SVN repository. Despite each package works independently, it may have dependencies on other packages. This is one reason why we encourage you to use PEAR.
+
+h4. *PEAR Installer*
+
+Once you have installed the PEAR Installer you can proceed to installing the package that you need. For example, if you are interested on installing WSL_Config, you can do it just by executing the following commands in your shell prompt: 
+
+<pre><code>
+pear channel-discover pear.weblogssl.com
+pear install -a WSL/WSL_Config
+</code></pre> 
