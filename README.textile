@@ -35,9 +35,9 @@ h6. Available Packages
 
 Currently we have these packages ready to use: 
 
-h7. *WSL_Config*
+h7.  *WSL_Config*
 
-h98. Introduction
+h8.  Introduction
 
 *WSL_Config* is a component that allows you to handle configuration INI files. It also lets you to merge different configuration files.
 
@@ -52,23 +52,23 @@ key2="world"
 key1="foo"
 </code></pre>
 
-h9. *Installation*
+h9.  *Installation*
 
-h10. *PEAR*
+h10.  *PEAR*
 
 <pre><code>
 pear channel-discover pear.weblogssl.com
 pear install -a WSL/WSL_Config
 </code></pre>
 
-h11. *SVN*
+h11.  *SVN*
 
 <pre><code>
 svn co http://wsl-components.googlecode.com/svn/trunk/Config wsl-components-read-only
 </code></pre>
 
-h12. **Methods**
+h12.  **Methods**
 
-h13. *Config.php*
+h13.  *Config.php*
 
 	*·*
