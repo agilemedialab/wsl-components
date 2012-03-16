@@ -366,4 +366,69 @@ h3. *Default rules*
     
 * *Email:* Checks if a field is a valid email address.
     
-* *Url:* Checks if a field is a valid URL. 
+* *Url:* Checks if a field is a valid URL.
+
+h3. *Extending WSL_FormValidator by creating new rules*
+
+You can extend *WSL_FormValidator* by creating your own rules. Please have a look at WSL_FormValidator_Rule (WSL/FormValidator/Rule.php), that is the class that you need to extend. Let's see an example:
+
+Rule: Checks if an integer is even  
+
+<pre><code>
+<?php
+
+require_once 'WSL/FormValidator/Rule.php';
+
+final class WSL_FormValidator_Even extends WSL_FormValidator_Rule
+{
+    $errors = array();
+        
+    $this->setDefaultErrorMsg($this->params[0] .' is not even');
+
+    if (($this->params[0] % 2) === 0) {
+        $errors[] = $this->errorMsg;
+    }
+                
+    return $errors;
+}
+
+?>
+</code></pre>
+
+Once you have created your new rule, place it in WSL/FormValidator/Rules/ and you will be able to use it in your application. 
+
+h3. *Examples*
+
+h4. *Example 1.Validating a form*
+
+<pre><code>
+<?php
+    require_once 'WSL/FormValidator/FormValidator.php';
+
+    /**
+     * Let's check a form containing two fields:
+     * - Name (it cannot be null or longer than 15 characters) 
+     * - Age (it cannot be less than 0 or greater than 65)
+     */
+
+    $validator = new WSL_FormValidator();
+
+    $validator->addRequirement('name',
+                               'The name cannot be null',
+                               'NoEmpty');
+    $validator->addRequirement('name',
+                               'The name cannot be longer than 15',
+                               'ShorterThan', 15);
+    $validator->addRequirement('age',
+                               'The age cannot be negative',
+                               'GreaterThan', 0);
+    $validator->addRequirement('age',
+                               'The age cannot be greater than 65',
+                               'LessThan', 65);
+
+    // If $errors is a empty array, all the fields are OK
+    $errors = $validator->validate($_POST);
+?>
+</code></pre>
+
+
