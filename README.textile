@@ -293,22 +293,12 @@ h3. *Example 2. Getting the Parameters*
 </code></pre>
 
 h3. *Example 3. Getting the URL*
+
 <pre><code>
-
 <?php
-    require_once 'WSL/Dispatcher/Dispatcher.php';
+require_once ‘WSL/Dispatcher/Dispatcher.php’;
+$routes = new WSL_Config(‘routes.ini’); $dispatcher = new WSL_Dispatcher($routes); $params = array(‘controller’ => ‘Controller.Posts’, ‘action’ => ‘post’, ‘title’ => ‘post-title’, ‘year’ => ‘1986’, ‘month’ => ‘10’, ‘day’ => ‘04’); $url = $dispatcher→toURL($params);
 
-    $routes     = new WSL_Config('routes.ini');
-    $dispatcher = new WSL_Dispatcher($routes);
-
-    $params = array('controller' => 'Controller.Posts',
-                    'action'     => 'post',
-                    'title'      => 'post-title',
-                    'year'       => '1986',
-                    'month'      => '10',
-                    'day'        => '04');
-
-    $url = $dispatcher->toURL($params);
 ?>
+</code></pre>
 
-</code></pre>  
