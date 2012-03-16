@@ -302,3 +302,68 @@ $routes = new WSL_Config(‘routes.ini’); $dispatcher = new WSL_Dispatcher($ro
 ?>
 </code></pre>
 
+h2. *WSL_FormValidator*
+
+h3. *Introduction*
+
+*WSL_FormValidator* is a component that allows you to validate the information submitted by a form. You can check if the form data fulfills certain rules. 
+
+h4. *Installation*
+
+h4. *PEAR*
+
+<pre><code>
+pear channel-discover pear.weblogssl.com
+pear install -a WSL/WSL_FormValidator
+</code></pre>
+
+h4. *SVN*
+
+<pre><code>
+svn co http://wsl-components.googlecode.com/svn/trunk/FormValidator wsl-components-read-only
+</code></pre>
+h3. *Methods*
+
+h4. *FormValidator.php*
+
+* public WSL_FormValidator *__construct()*
+
+This is the WSL_FormValidator constructor, it creates a WSL_FormValidator object. It loads all the rules stored in WSL/Rules/.
+
+
+* public array *getAvailableRules()*
+
+This method returns an array containing all the available rules.
+
+* public void *addRequirement*(string $field, string $errorMsg, string $rule)
+
+This method defines a requirement for certain field. $field is the name of the form field that we want to add a $rule. You can set an error message by passing it as a parameter ($errorMsg).
+
+* public array *validate*(array $data)
+
+This method returns an empty array if the input data fulfills all the defined rules. Otherwise, it returns an array containing all the found errors.
+
+h3. *Default rules*
+
+* *NoEmpty:* Checks that a field is not empty.
+
+* *Equal:* Checks if a field is equal to a certain value.
+
+* *GreaterOrEqualThan:* Checks if a field is greater or equal to a certain value.
+* *GreaterThan:* Checks if a field is greater than a certain value.
+    
+* *LessOrEqualThan:* Checks if a field is less or equal to a certain value.
+    
+* *LessThan:* Checks if a field is less than a certain value.
+
+* *LongerOrEqualThan:* Checks if a string length is longer or equal to a certain value.
+    
+* *LongerThan:* Checks if a string length is longer than a certain value.
+    
+* *ShorterOrEqualThan:* Checks if a string length is shorter or equal to a certain value.
+    
+* *ShorterThan:* Checks if a string length is shorter than a certain value.
+    
+* *Email:* Checks if a field is a valid email address.
+    
+* *Url:* Checks if a field is a valid URL. 
