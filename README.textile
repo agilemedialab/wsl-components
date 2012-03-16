@@ -619,12 +619,15 @@ h4. *Example 5. Getting the request path*
 
 <pre><code>
 
+
 <?php
     require 'WSL/Request/Request.php';
 
 $path = WSL_Request::getPath();
 
 ?>
+
+
 </code></pre>
 
 
