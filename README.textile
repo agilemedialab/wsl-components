@@ -631,4 +631,120 @@ $path = WSL_Request::getPath();
 </code></pre>
 
 
+h2. *WSL_Response*
 
+h3. *Introduction*
+
+*WSL_Responses* is a component that helps you out to handle HTTP Responses, allowing you to modify HTTP headers. All the methods are static, so you can call them directly without a needing to create an instance.
+Installation
+
+h4. *Installation*
+
+h4. *PEAR*
+
+<pre><code>
+
+pear channel-discover pear.weblogssl.com
+pear install -a WSL/WSL_Response
+
+</code></pre>
+
+h4. *SVN*
+
+<pre><code>
+
+svn co http://wsl-components.googlecode.com/svn/trunk/Response wsl-components-read-only
+
+</code></pre>
+
+h4. *Package Dependencies*
+
+* *WSL_Request*>= 0.1
+
+h3. *Methods*
+
+h4. *Response.php*
+
+* public static void *addHeader*(string $name, string $value = null)
+
+Adds a header that is going to be sent on output.
+
+
+* public static void *setContentType*(string $type)
+
+Sets the content type.
+
+* public static void *setCacheControl*(string $cache)
+
+Sets cache control directives.
+
+* public static void *sendAsXml*()
+
+Sets the content type to XML.
+
+* public static integer *getStatusCode*()
+
+Returns the status code.
+
+* public static integer *sendStatusCode*(integer $statusCode, boolean $render = true)
+
+Sets a HTTP status code.
+
+* public static void *redirect*(string $url, integer $redirectType = 302)
+
+Redirects the enduser instead of outputting content.
+
+* public static string *getRedirect()*
+
+Gets redirect header if set.
+
+* public static void *captureOutput*(boolean $gzip = false, boolean $useOutputHandler = true)
+
+Starts output buffering.
+
+* public static string *getPart()*
+
+Returns the captured chunk.
+
+* public static string *send()*
+
+Sends the headers and then the output either directly to the client or returns it as string.
+
+h3. *Examples*
+
+h4. *Example 1. Performing a redirect*
+
+<pre><code>
+
+<?php
+    require 'WSL/Response/Response.php';
+
+    $url = 'http://www.weblogssl.com';
+
+    WSL_Response::redirect($url);
+
+    /* ... */
+
+    WSL_Response::send();
+?>
+
+</code></pre>
+
+
+h4. *Example 2. Sending a 404 error*
+
+<pre><code>
+
+<?php
+    require 'WSL/Response/Response.php';
+
+    WSL_Response::sendStatusCode(404);
+
+    /* ... */
+
+    WSL_Response::send();
+?>
+
+</code></pre>
+
+ 
