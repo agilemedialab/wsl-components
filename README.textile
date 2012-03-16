@@ -431,4 +431,197 @@ h4. *Example 1.Validating a form*
 ?>
 </code></pre>
 
+h2. *WSL_Request*
+
+h3. *Introduction*
+
+*WSL_Request* is a component that provides a set of tools in order to handle HTTP requests. All the methods are static, so you can call them directly without a needing to create an instance. 
+
+h4. *Installation*
+
+h4. *PEAR*
+
+<pre><code>
+pear channel-discover pear.weblogssl.com
+pear install -a WSL/WSL_Request
+</code></pre>
+
+h4. *SVN*
+
+<pre><code>
+svn co http://wsl-components.googlecode.com/svn/trunk/Request wsl-components-read-only
+</code></pre>
+
+h3. *Methods*
+
+h4. *Request.php*
+
+* public static mixed *getPostVar*(string $name, string $validator = null, string $purifier = null, boolean $required = false)
+
+Gets a value from the POST data by name. $name is the variable name which we are trying to get. If we need to validate the data, we can do it just passing a callback function by $validator. Validators must return a boolean value. We can also purify the data by using $purifier. This is quite similar to a validator, with the difference being that the purifier modifies the input data and returns it. If we set $required to false, we won't receive any warning. We made this because we consider that any input data should be validated, that's why we trigger a warning if a validator is not defined when we call getPostVar or getGetVar.
+
+* public static mixed *getGetVar*(string $name, string $validator = null, string $purifier = null, boolean $required = false)
+
+This methods works in the same way than getPostVar. It retrieves data from a GET request.
+
+* public static array *getFiles*()
+
+Returns the whole $_FILE array.
+
+* public static string *getPath*()
+
+Returns the request path. Notice that this method gets rid of the query string (just in case).
+
+* public static string *getIp*()
+
+Returns the client IP address.
+
+* public static string *getReferer*()
+
+Returns the address of the page (if any) which referred the user agent to the current page.
+
+* public static string *getModifiedTime*()
+
+Returns the modified time.
+
+* public static boolean *isDynamic*()
+
+Returns whether we have a dynamic request (GET or POST parameters).
+
+* public static boolean *isPost*()
+
+Does this request have POST parameters?.
+
+* public static boolean *isGet*()
+
+Does this request have GET parameters?.
+
+* public static void *setDynamic*(boolean $dynamic = true)
+
+Forces a request to be or not dynamic.
+
+* public static boolean *acceptsEncoding*(string $encoding)
+
+Checks if the server accepts a certain encoding.
+
+* public static array *getBrowserLanguages()*
+
+Returns browser languages.
+
+* public static string *getUserAgent()*
+
+Returns the client UserAgent.
+
+h3. *Examples*
+
+h4. *Example1. Getting a certain POST parameter*
+
+<pre><code>
+<?php
+    require 'WSL/Request/Request.php';
+
+    $foo = WSL_Request::getPostVar('foo');
+?>
+</code></pre>
+
+h4. *Example 2. Getting a certain POST parameter with validation*
+
+<pre><code>
+<?php
+
+    // We are checking if the input value is a valid email
+
+    require 'WSL/Request/Request.php';
+
+    class Validators
+    {
+        public static function isEmail($email)
+        {
+            $validEmail = true;
+
+            if (filter_var(email, FILTER_VALIDATE_EMAIL) === false) {
+                $validEmail = false;
+            }
+
+            return $validEmail;
+        }
+    }
+
+    try {
+        $foo = WSL_Request::getPostVar('foo', 'Validators::isEmail');
+    } catch (Exception $e) {
+        // handle the error here
+    }
+?>
+</code></pre>
+
+h4. *Example 3. Getting a certain POST parameter with purification*
+
+<pre><code>
+<?php
+
+    // We are capitalizing the input data
+
+    require 'WSL/Request/Request.php';
+
+    class Purifiers
+    {
+        public static function capitalize($data)
+        {
+            return strtoupper($data);
+        }
+    }
+
+    try {
+        $foo = WSL_Request::getPostVar('foo', null, 'Purifiers::capitalize');
+    } catch (Exception $e) {
+        // handle the error here
+    }
+?>
+</code></pre>
+
+h4. *Example 3. Getting a certain POST parameter with purification*
+
+<pre><code>
+<?php
+
+    // We are capitalizing the input data
+
+    require 'WSL/Request/Request.php';
+
+    class Purifiers
+    {
+        public static function capitalize($data)
+        {
+            return strtoupper($data);
+        }
+    }
+
+    try {
+        $foo = WSL_Request::getPostVar('foo', null, 'Purifiers::capitalize');
+    } catch (Exception $e) {
+        // handle the error here
+    }
+?>
+</code></pre> 
+
+h4. *Example 4. Getting the referer*
+
+<pre><code>
+<?php
+    require 'WSL/Request/Request.php';
+
+    $referer = WSL_Request::getReferer();
+?>
+</code></pre>
+
+h4. *Example 5. Getting the request path*
+<pre><code>
+<?php
+    require 'WSL/Request/Request.php';
+
+    $path = WSL_Request::getPath();
+?>
+</code></pre>
+
 
