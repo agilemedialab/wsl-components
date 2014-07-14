@@ -89,7 +89,7 @@ class WSL_Dispatcher_Router
             $pieces = $this->_getPieces($url);
 
             $level = -1;
-            $this->_lookUp($pieces, $this->_tree, &$node, $level);
+            $this->_lookUp($pieces, $this->_tree, $node, $level);
         }
 
         if (!empty($node)) {
@@ -255,14 +255,14 @@ class WSL_Dispatcher_Router
                         
                         if ($level === 0) {
                             if (!$this->_tree->containsExpreg($exp)) {
-                                $previousNode =& $this->_tree->addChild(&$node);
+                                $previousNode =& $this->_tree->addChild($node);
                             } else {
                                 $previousNode =& $this->_tree
                                                            ->getChildByExpreg($exp);
                             }
                         } else {
                             if (!$previousNode->containsExpreg($exp)) {
-                                $previousNode =& $previousNode->addChild(&$node);
+                                $previousNode =& $previousNode->addChild($node);
                             } else {
                                 $previousNode =& $previousNode
                                                            ->getChildByExpreg($exp);
@@ -271,14 +271,14 @@ class WSL_Dispatcher_Router
                     } else {
                         if ($level === 0) {
                             if (!$this->_tree->contains($piece)) {
-                                $previousNode =& $this->_tree->addChild(&$node);
+                                $previousNode =& $this->_tree->addChild($node);
                             } else {
                                 $previousNode =& $this->_tree
                                                         ->getChildByLiteral($piece);
                             }
                         } else {
                             if (!$previousNode->contains($piece)) {
-                                $previousNode =& $previousNode->addChild(&$node);  
+                                $previousNode =& $previousNode->addChild($node);  
                             } else {
                                 $previousNode =& $previousNode
                                                         ->getChildByLiteral($piece);
@@ -286,8 +286,8 @@ class WSL_Dispatcher_Router
                         }
                     }
                                                
-                    $this->_proccessIfActive(&$active,
-                                             &$previousNode,
+                    $this->_proccessIfActive($active,
+                                             $previousNode,
                                               $route);
                 }
             }
@@ -344,7 +344,7 @@ class WSL_Dispatcher_Router
             $node->setActive(true);
             $active = false;
             
-            $this->_processMetaValues(&$node, $params);
+            $this->_processMetaValues($node, $params);
         }
     }
     
@@ -428,7 +428,7 @@ class WSL_Dispatcher_Router
                                            $child->isActive()) && $level == $size) {
                             $found = $child;
                         } else if ($level < $size) {
-                            $this->_lookUp($urlPieces, $child, &$found, $level);
+                            $this->_lookUp($urlPieces, $child, $found, $level);
                         }
                     }
                 }
@@ -452,7 +452,7 @@ class WSL_Dispatcher_Router
                                            $child->isActive()) && $level == $size) {
                                $found = $child;
                            } else if ($level < $size) {
-                               $this->_lookUp($urlPieces, $child, &$found, $level);
+                               $this->_lookUp($urlPieces, $child, $found, $level);
                            }
                        }
                    }
