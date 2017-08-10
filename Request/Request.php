@@ -266,7 +266,7 @@ class WSL_Request
     
         if (!isset($encodings)) {
             if (isset($_SERVER['HTTP_ACCEPT_ENCODING'])) {
-                $encodings = split(',', $_SERVER['HTTP_ACCEPT_ENCODING']);
+                $encodings = explode(',', $_SERVER['HTTP_ACCEPT_ENCODING']);
             } else {
                 $encodings = array();
             }
@@ -307,10 +307,10 @@ class WSL_Request
         $languages = preg_replace('/q=[0-9\.]+,*/', '', @$_SERVER['HTTP_ACCEPT_LANGUAGE']);
 
         $browserAcceptedLanguages = str_replace('-', '_', strtolower($languages));
-        $browserLanguages         = array_diff(split(';|,', $browserAcceptedLanguages . ','), array(''));
+        $browserLanguages         = array_diff(explode(';|,', $browserAcceptedLanguages . ','), array(''));
                
         foreach ($browserLanguages as $lang) {
-            $parts = split('_', $lang);
+            $parts = explode('_', $lang);
             
             if (isset($parts[1]) && !in_array($parts[0], $browserLanguages)) {
                 $browserLanguages[] = $parts[0];
